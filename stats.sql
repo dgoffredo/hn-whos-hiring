@@ -1,5 +1,6 @@
 select
   month_iso as "month"
+, count(*) as "jobs"
 , round(100.0*sum(ai_mentions > 0)/count(*), 1) as "ai%"
 , round(100.0*sum(remote_mentions > 0)/count(*), 1) as "remote%"
 , round(100.0*sum(onsite_mentions > 0)/count(*), 1) as "onsite%"
