@@ -1,8 +1,8 @@
 #!/bin/sh
 
-this_month=$(date --iso | head -c 7)
+this_month=${1:-$(date --iso | head -c 7)}
 
-python query2html.py "$@" <<END_QUERY
+python query2html.py <<END_QUERY
 select markup
 from JobPost
 where ai_mentions = 0
