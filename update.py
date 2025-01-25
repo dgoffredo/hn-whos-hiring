@@ -25,7 +25,8 @@ def num_matches(subject, *patterns):
 
 
 if __name__ == '__main__':
-  db = sqlite3.connect(sys.argv[1] if len(sys.argv) == 2 else 'db.sqlite')
+  db = sqlite3.connect('db.sqlite')
+  since = '0001-01' if len(sys.argv) < 2 else sys.argv[1]
 
   user_url = 'https://hacker-news.firebaseio.com/v0/user/whoishiring.json'
   user = http_get_json(user_url)
@@ -40,6 +41,9 @@ if __name__ == '__main__':
     post_unix = post['time']
     post_datetime = datetime.datetime.fromtimestamp(post_unix)
     post_month_iso = post_datetime.isoformat()[:len('2024-10')]
+    if post_month_iso < since:
+      # We've gone back as far as we want.
+      break
     print(post_datetime)
     comment_ids = list(sorted(post['kids'])) # probably redundant
     for comment_id in comment_ids:
