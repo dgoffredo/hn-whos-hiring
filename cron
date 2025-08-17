@@ -6,7 +6,7 @@ cd "$(dirname "$0")"
 python ./update.py "$(date --iso --date '35 days ago' | head -c 7)"
 ./month.sh "$(date --iso --date '35 days ago' | head -c 7)" >/var/www/home.davidgoffredo.com/hn-whos-hiring.html
 
->stats.tab sqlite3 <<'END_SQL'
+>stats.tab sqlite3 db.sqlite <<'END_SQL'
 .mode tabs
 .headers off
 .read stats.sql
